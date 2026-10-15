@@ -14,6 +14,12 @@ Each section covers essential red teaming techniques, including Active Directory
 
 Whether you're preparing for the CRTP certification or looking to enhance your knowledge of Active Directory security, this repository serves as both a study guide and a technical resource for anyone interested in offensive security and red teaming.
 
+## Course Notes
+
+- [PowerShell Security and Evasion](./course_notes/powershell.md)
+- [Offensive .NET](./course_notes/offensive_dotnet.md)
+- [Active Directory Domain Enumeration](./course_notes/domain_enumeration.md)
+
 ## Learning Path Topics
 
 #### 01 [Learning Objective](./learning_objective_01.md)
@@ -147,6 +153,13 @@ Whether you're preparing for the CRTP certification or looking to enhance your k
 #### 23 [Learning Objective](./learning_objective_23.md)
 
 - [x] **Compromise `eu-sql26` again. Use opsec friendly alternatives to bypass MDE and MDI**
+
+## Exam Simulation
+
+- [CRTP Exam Simulation](./crtp_exam_simulation.md)
+
+> [!WARNING]
+> The exam simulation contains a complete walkthrough and spoilers for the CRTP practice environment.
 
 ---
 ---

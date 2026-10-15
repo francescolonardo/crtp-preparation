@@ -1,4 +1,4 @@
-# Learning Objective 12 (Domain Persistence using ACLs | Replication Rights Abuse + DCSync Attack)
+# Learning Objective 12 (Domain Persistence | Replication Rights Abuse + DCSync)
 
 ## Tasks
 
@@ -105,6 +105,24 @@ Start a process as domain administrator by running the below command from an ele
 Run the below commands in the new spawned process.
 
 ![New spawned terminal process](./assets/screenshots/learning_objective_12_new_spawned_terminal_process.png)
+
+`klist`:
+```
+Current LogonId is 0:0x6bbe52
+
+Cached Tickets: (1)
+
+#0>     Client: svcadmin🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
+        Server: krbtgt📌/DOLLARCORP.MONEYCORP.LOCAL @ DOLLARCORP.MONEYCORP.LOCAL
+        KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
+        Ticket Flags 0x40e10000 -> forwardable renewable initial pre_authent name_canonicalize
+        Start Time: 3/6/2025 6:22:32 (local)
+        End Time:   3/6/2025 16:22:32 (local)
+        Renew Time: 3/13/2025 6:22:32 (local)
+        Session Key Type: AES-256-CTS-HMAC-SHA1-96
+        Cache Flags: 0x1 -> PRIMARY
+        Kdc Called:
+```
 
 `C:\AD\Tools\InviShell\RunWithPathAsAdmin.bat`:
 ```

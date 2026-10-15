@@ -30,7 +30,7 @@ To enumerate ACLs, we can use `Get-DomainObjectACL` from PowerView.
 [SNIP]
 ```
 
-`Get-DomainObjectAcl -Identity "Domain Admins" -ResolveGUIDs -Verbose`:
+`Get-DomainObjectAcl -Identity 'Domain Admins' -ResolveGUIDs -Verbose`:
 ```
 AceQualifier           : AccessAllowed
 ObjectDN               : CN=Domain Admins📌,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
@@ -73,23 +73,23 @@ OpaqueLength           : 0
 [SNIP]
 ```
 
+**Enumerate ACLs where `student422` has interesting permissions**
+
 `whoami`:
 ```
 dcorp\student422
 ```
 
-**Enumerate ACLs where `student422` has interesting permissions**
-
 Finally, to check for modify rights/permissions for the `student422`, we can use `Find-InterestingDomainACL` from PowerView.
 
-`Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "student422"}`:
+`Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match 'student422'}`:
 ```
 ```
 ❌
 
 Nothing interesting!
 
-`Get-DomainUser -Name student422`:
+`Get-DomainUser -Name 'student422'`:
 ```
 logoncount            : 12
 badpasswordtime       : 2/11/2025 3:49:37 AM
@@ -126,11 +126,11 @@ name                  : student422
 
 Since `student422` is a member of the "RDPUsers" group, let us check permissions for it too.
 
-`Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "RDPUsers"}`:
+`Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match 'RDPUsers'}`:
 ```
-ObjectDN                : CN=Control416User📌,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+ObjectDN                : CN=Control416User👤,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
 AceQualifier            : AccessAllowed
-ActiveDirectoryRights   : GenericAll📌
+ActiveDirectoryRights   : GenericAll📑
 ObjectAceType           : None
 AceFlags                : None
 AceType                 : AccessAllowed
@@ -141,24 +141,9 @@ IdentityReferenceDomain : dollarcorp.moneycorp.local
 IdentityReferenceDN     : CN=RDP Users,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
 IdentityReferenceClass  : group
 
-ObjectDN                : CN=Control417User📌,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+ObjectDN                : CN=Control417User👤,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
 AceQualifier            : AccessAllowed
-ActiveDirectoryRights   : GenericAll📌
-ObjectAceType           : None
-AceFlags                : None
-AceType                 : AccessAllowed
-InheritanceFlags        : None
-SecurityIdentifier      : S-1-5-21-719815819-3726368948-3917688648-1123
-IdentityReferenceName   : RDPUsers👥
-IdentityReferenceDomain : dollarcorp.moneycorp.local
-IdentityReferenceDN     : CN=RDP Users,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
-IdentityReferenceClass  : group
-
-[SNIP]
-
-ObjectDN                : CN=Support416User📌,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
-AceQualifier            : AccessAllowed
-ActiveDirectoryRights   : GenericAll📌
+ActiveDirectoryRights   : GenericAll📑
 ObjectAceType           : None
 AceFlags                : None
 AceType                 : AccessAllowed
@@ -171,9 +156,24 @@ IdentityReferenceClass  : group
 
 [SNIP]
 
-ObjectDN                : CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📌,CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+ObjectDN                : CN=Support416User👤,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
 AceQualifier            : AccessAllowed
-ActiveDirectoryRights   : GenericAll📌
+ActiveDirectoryRights   : GenericAll📑
+ObjectAceType           : None
+AceFlags                : None
+AceType                 : AccessAllowed
+InheritanceFlags        : None
+SecurityIdentifier      : S-1-5-21-719815819-3726368948-3917688648-1123
+IdentityReferenceName   : RDPUsers👥
+IdentityReferenceDomain : dollarcorp.moneycorp.local
+IdentityReferenceDN     : CN=RDP Users,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+IdentityReferenceClass  : group
+
+[SNIP]
+
+ObjectDN                : CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📑,CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+AceQualifier            : AccessAllowed
+ActiveDirectoryRights   : GenericAll📑
 ObjectAceType           : None
 AceFlags                : None
 AceType                 : AccessAllowed
@@ -196,12 +196,12 @@ gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{62C1845D-C4A6
 whenchanged              : 1/6/2025 8:33:19 AM
 versionnumber            : 15
 name                     : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}
-cn                       : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}
+cn                       : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📑
 usnchanged               : 303528
 dscorepropagationdata    : {1/6/2025 8:33:19 AM, 12/18/2024 8:31:49 AM, 12/18/2024 8:31:01 AM, 12/18/2024 8:30:36 AM...}
 objectguid               : bcf4770b-b560-468b-88cb-6beaeb6793f9
-gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📌
-distinguishedname        : CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📌,CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📁
+distinguishedname        : CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
 whencreated              : 11/15/2022 4:21:20 AM
 showinadvancedviewonly   : True
 usncreated               : 45231

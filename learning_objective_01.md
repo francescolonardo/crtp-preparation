@@ -250,7 +250,7 @@ dcorp-std418.dollarcorp.moneycorp.local
  
 To see details of the "Domain Admins" group.
 
-`Get-DomainGroup -Identity "Domain Admins"`:
+`Get-DomainGroup -Identity 'Domain Admins'`:
 ```
 grouptype              : GLOBAL_SCOPE, SECURITY
 admincount             : 1
@@ -278,7 +278,7 @@ objectcategory         : CN=Group,CN=Schema,CN=Configuration,DC=moneycorp,DC=loc
 
 To enumerate members of the "Domain Admins" group.
 
-`Get-DomainGroupMember -Identity "Domain Admins"`:
+`Get-DomainGroupMember -Identity 'Domain Admins'`:
 ```
 GroupDomain             : dollarcorp.moneycorp.local
 GroupName               : Domain Admins👥
@@ -303,7 +303,7 @@ MemberSID               : S-1-5-21-719815819-3726368948-3917688648-500📌
 
 To enumerate members of the "Enterprise Admins" group.
 
-`Get-DomainGroupMember -Identity "Enterprise Admins"`:
+`Get-DomainGroupMember -Identity 'Enterprise Admins'`:
 ```
 ```
 ❌
@@ -324,7 +324,7 @@ InfrastructureRoleOwner : dcorp-dc.dollarcorp.moneycorp.local
 Name                    : dollarcorp.moneycorp.local🏛️
 ```
 
-`Get-DomainGroupMember -Identity "Enterprise Admins" -Domain moneycorp.local`:
+`Get-DomainGroupMember -Identity 'Enterprise Admins' -Domain 'moneycorp.local'`:
 ```
 GroupDomain             : moneycorp.local
 GroupName               : Enterprise Admins👥
@@ -507,7 +507,7 @@ SID               : S-1-5-21-335606122-960912869-3279953914-500
 ```
 🚩
 
-2. **Use BloodHound to identify the shortest path to Domain Admins in the `dollarcorp` domain**
+1. **Use BloodHound to identify the shortest path to "Domain Admins" in the `dollarcorp` domain**
 
 For BloodHound, we will try with both the **Legacy** version and **Community Edition**.
 
@@ -553,10 +553,12 @@ Enter the username: "neo4j" and password: "neo4j".
 
 You need to enter a new password. Let's use "BloodHound" as the new password.
 
-Now, open BloodHound Legacy with `C:\AD\Tools\BloodHound-win32-x64\BloodHound-win32-x64\BloodHound.exe` and provide the following details:
+Now, open BloodHound Legacy and provide the following details:
 - URL: "bolt://localhost:7687"
 - Username: "neo4j"
-- Password: "BloodHound"
+- Password: "BloodHound".
+
+`C:\AD\Tools\BloodHound-win32-x64\BloodHound-win32-x64\BloodHound.exe`
 
 ![BloodHound Legacy - Login](./assets/screenshots/learning_objective_01_bloodhound_legacy_login.png)
 
@@ -586,7 +588,7 @@ Closing writers
  0 machine sid mappings.
  5 sid to domain mappings.
  0 global catalog mappings.
-2025-02-12T03:53:48.0670552-08:00|INFORMATION|SharpHound Enumeration Completed at 3:53 AM on 2/12/2025! Happy Graphing!
+2025-02-12T03:53:48.0670552-08:00|INFORMATION|SharpHound Enumeration Completed at 3:53 AM on 2/12/2025! Happy Graphing!📌
 ```
 
 ![BloodHound Legacy - Upload Data](./assets/screenshots/learning_objective_01_bloodhound_legacy_upload_data.png)

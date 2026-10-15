@@ -403,7 +403,7 @@ Current LogonId is 0:0x848dc4
 Cached Tickets: (1)
 
 #0>     Client: Administrator🎭 @ DOLLARCORP.MONEYCORP.LOCAL🏛️
-        Server: krbtgt/dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
+        Server: krbtgt📌/dollarcorp.moneycorp.local @ DOLLARCORP.MONEYCORP.LOCAL
         KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
         Ticket Flags 0x40e00000 -> forwardable renewable initial pre_authent
         Start Time: 2/13/2025 1:39:41 (local)

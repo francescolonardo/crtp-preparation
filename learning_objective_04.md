@@ -26,6 +26,8 @@ We can use both PowerView and the Active Directory module to solve the tasks.
 [SNIP]
 ```
 
+`Import-Module C:\AD\Tools\PowerView.ps1`
+
 1. **Enumerate all domains in the `moneycorp.local` forest**
 
 `Get-Forest`:
@@ -33,24 +35,24 @@ We can use both PowerView and the Active Directory module to solve the tasks.
 RootDomainSid         : S-1-5-21-335606122-960912869-3279953914
 Name                  : moneycorp.local🏰
 Sites                 : {Default-First-Site-Name}
-Domains               : {dollarcorp.moneycorp.local, moneycorp.local, us.dollarcorp.moneycorp.local}
+Domains               : {dollarcorp.moneycorp.local🏛️, moneycorp.local🏛️, us.dollarcorp.moneycorp.local🏛️}
 GlobalCatalogs        : {mcorp-dc.moneycorp.local, dcorp-dc.dollarcorp.moneycorp.local, us-dc.us.dollarcorp.moneycorp.local}
 ApplicationPartitions : {DC=ForestDnsZones,DC=moneycorp,DC=local, DC=DomainDnsZones,DC=us,DC=dollarcorp,DC=moneycorp,DC=local,
                         DC=DomainDnsZones,DC=dollarcorp,DC=moneycorp,DC=local, DC=DomainDnsZones,DC=moneycorp,DC=local}
 ForestModeLevel       : 7
 ForestMode            : Unknown
-RootDomain            : moneycorp.local🏛️
+RootDomain            : moneycorp.local
 Schema                : CN=Schema,CN=Configuration,DC=moneycorp,DC=local
 SchemaRoleOwner       : mcorp-dc.moneycorp.local
 NamingRoleOwner       : mcorp-dc.moneycorp.local
 ```
 
-Let’s enumerate all domains in the current forest.
+Let's enumerate all domains in the current forest.
 
 `Get-ForestDomain -Verbose`:
 ```
 Forest                  : moneycorp.local
-DomainControllers       : {dcorp-dc.dollarcorp.moneycorp.local}
+DomainControllers       : {dcorp-dc.dollarcorp.moneycorp.local}🖥️
 Children                : {us.dollarcorp.moneycorp.local}
 DomainMode              : Unknown
 DomainModeLevel         : 7
@@ -61,7 +63,7 @@ InfrastructureRoleOwner : dcorp-dc.dollarcorp.moneycorp.local
 Name                    : dollarcorp.moneycorp.local🏛️
 
 Forest                  : moneycorp.local
-DomainControllers       : {mcorp-dc.moneycorp.local}
+DomainControllers       : {mcorp-dc.moneycorp.local}🖥️
 Children                : {dollarcorp.moneycorp.local}
 DomainMode              : Unknown
 DomainModeLevel         : 7
@@ -72,7 +74,7 @@ InfrastructureRoleOwner : mcorp-dc.moneycorp.local
 Name                    : moneycorp.local🏛️
 
 Forest                  : moneycorp.local
-DomainControllers       : {us-dc.us.dollarcorp.moneycorp.local}
+DomainControllers       : {us-dc.us.dollarcorp.moneycorp.local}🖥️
 Children                : {}
 DomainMode              : Unknown
 DomainModeLevel         : 7
@@ -92,7 +94,7 @@ To map all the trusts of the `dollarcorp` domain.
 SourceName      : dollarcorp.moneycorp.local🏛️
 TargetName      : moneycorp.local🏛️
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : WITHIN_FOREST
+TrustAttributes : WITHIN_FOREST🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 5:59:01 AM
 WhenChanged     : 2/6/2025 5:09:45 AM
@@ -100,15 +102,15 @@ WhenChanged     : 2/6/2025 5:09:45 AM
 SourceName      : dollarcorp.moneycorp.local🏛️
 TargetName      : us.dollarcorp.moneycorp.local🏛️
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : WITHIN_FOREST
+TrustAttributes : WITHIN_FOREST🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 6:22:51 AM
 WhenChanged     : 2/11/2025 5:17:26 AM
 
 SourceName      : dollarcorp.moneycorp.local🏛️
-TargetName      : eurocorp.local🏛️
+TargetName      : eurocorp.local🏰
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : FILTER_SIDS📌
+TrustAttributes : FILTER_SIDS🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 8:15:23 AM
 WhenChanged     : 2/11/2025 5:17:24 AM
@@ -121,9 +123,9 @@ Now, to list only the external trusts in the `moneycorp.local` forest.
 `Get-ForestDomain | %{Get-DomainTrust -Domain $_.Name} | ?{$_.TrustAttributes -eq "FILTER_SIDS"}`:
 ```
 SourceName      : dollarcorp.moneycorp.local🏛️
-TargetName      : eurocorp.local🏛️
+TargetName      : eurocorp.local🏰
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : FILTER_SIDS📌
+TrustAttributes : FILTER_SIDS🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 8:15:23 AM
 WhenChanged     : 2/11/2025 5:17:24 AM
@@ -136,9 +138,9 @@ To identify external trusts of the `dollarcorp` domain, we can use the below com
 `Get-DomainTrust | ?{$_.TrustAttributes -eq "FILTER_SIDS"}`:
 ```
 SourceName      : dollarcorp.moneycorp.local🏛️
-TargetName      : eurocorp.local🏛️
+TargetName      : eurocorp.local🏰
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : FILTER_SIDS📌
+TrustAttributes : FILTER_SIDS🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 8:15:23 AM
 WhenChanged     : 2/11/2025 5:17:24 AM
@@ -148,12 +150,12 @@ Since the above is a bi-directional trust, we can extract information from the `
 
 Let's go for the last task and enumerate trusts for `eurocorp.local` forest.
 
-`Get-ForestDomain -Forest eurocorp.local | %{Get-DomainTrust -Domain $_.Name}`:
+`Get-ForestDomain -Forest 'eurocorp.local' | %{Get-DomainTrust -Domain $_.Name}`:
 ```
 SourceName      : eurocorp.local🏛️
 TargetName      : eu.eurocorp.local🏛️
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : WITHIN_FOREST📌
+TrustAttributes : WITHIN_FOREST🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 5:49:08 AM
 WhenChanged     : 2/11/2025 5:17:40 AM
@@ -161,7 +163,7 @@ WhenChanged     : 2/11/2025 5:17:40 AM
 SourceName      : eurocorp.local🏛️
 TargetName      : dollarcorp.moneycorp.local🏛️
 TrustType       : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : FILTER_SIDS📌
+TrustAttributes : FILTER_SIDS🔗
 TrustDirection  : Bidirectional🔗
 WhenCreated     : 11/12/2022 8:15:23 AM
 WhenChanged     : 2/11/2025 5:17:24 AM
